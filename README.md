@@ -7,11 +7,10 @@ An ASP.NET toolkit for Hubstaff API.
 Include the ```hubstaff.cs``` file in your project
 
 Use your personal ```APP_TOKEN``` found in your account settings to the config.cs file.
-```
+```C#
   public string App_token = "<Hubstaff Application Token>";
   public string email = "<Hubstaff Account Email>";
   public string password = "<Hubstaff Account Password>";
-
 ```
 ## Usage
 
@@ -63,8 +62,7 @@ First configure the ``config.cs`` with your ``APP_TOKEN``, ``email`` and ``passw
 
 List all users and organization or project memberships for each user.
 
-```PHP
-
+```C#
 aspnetcoreapp hubstaff_api _hubstaff = new aspnetcoreapp hubstaff_api;
 _hubstaff.users(1,1,0);
 # => {"users": [{ "id":..., "organanizations": ["id":...], "projects": ["id":...]}]}
@@ -75,8 +73,7 @@ _hubstaff.users(1,1,0);
 
 Users can be looked up by their ``user_id``.
 
-```PHP
-
+```C#
 aspnetcoreapp hubstaff_api _hubstaff = new aspnetcoreapp hubstaff_api;
 _hubstaff.find_user(61188);
 

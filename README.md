@@ -1,2 +1,82 @@
-# hubstaff-dot-not
-An object-oriented .NET wrapper for Hubstaff API v1
+# Hubstaff ASP.NET Client
+
+An ASP.NET toolkit for Hubstaff API.
+
+## Installation
+
+Include the ```hubstaff.cs``` file in your project
+
+Use your personal ```APP_TOKEN``` found in your account settings to the config.cs file.
+```C#
+  public string App_token = "<Hubstaff Application Token>";
+  public string email = "<Hubstaff Account Email>";
+  public string password = "<Hubstaff Account Password>";
+```
+## Usage
+
+Calls for Hubstuff API v1 are relative to the base url https://api.hubstaff.com/v1/
+
+API actions are available as methods on the client object. Currently, the Hubstaff client has the following methods:
+
+| Action               	                   | Method             					                             |
+|:-----------------------------------------|:----------------------------------------------------------|
+| **Users**                                |                   					                               |
+| List users          	                   | `#users(org_member, project_member, offset)`              |
+| Find a user          	                   | `#find_user(user_id)`                                     |
+| Find a users organizations    	         | `#find_user_orgs(user_id, offset)`                        |
+| Find a users projects                    | `#find_user_projects(user_id, offset)`                    |
+| **Organizations**                        |                   					                               |
+| List organizations                       | `#organizations(offset)`                                  |
+| Find a organization                      | `#find_organization(org_id)`                              |
+| Find a organization projects 	           | `#find_org_projects(org_id, offset)`                      |
+| Find a organization members              | `#find_org_members(org_id, offset)`                       |
+| **Projects**                             |                   					                               |
+| List projects                            | `#projects(active, offset)`                               |
+| Find a project                           | `#find_project(project_id)`                               |
+| Find a project members                   | `#find_project_members(project_id, offset)`               |
+| **Activities**                           |                   					                               |
+| List activities                          | `#activities(start_time, stop_time, offset, options={})`  |
+| **Screenshots**                          |                    					                             | 
+| List Screenshots                         | `#screenshots(start_time, stop_time, offset, options={})` |
+| **Notes**                                |                   					                               |
+| List notes                               | `#notes(start_time, stop_time, offset, options={})`       |
+| Find a note                              | `#find_note(note_id)`                                     |
+| **Weekly Reports**                       |                   					                               |
+| List weekly team report                  | `#weekly_team(options={})`                                |
+| List weekly individual report            | `#weekly_my(options={})`                                  |
+| **Custom Reports**                       |                   					                               |
+| List custom team report by date          | `#custom_date_team(start_date, end_date, options={})`     |
+| List custom individual report by date    | `#custom_date_my(start_date, end_date, options={})`       |
+| List custom team report by member        | `#custom_member_team(start_date, end_date, options={})`   |
+| List custom individual report by member  | `#custom_member_my(start_date, end_date, options={})`     |
+| List custom team report by project       | `#custom_project_team(start_date, end_date, options={})`  |
+| List custom individual report by project | `#custom_project_my(start_date, end_date, options={})`    |
+
+## Use Cases
+
+Here are some common use cases for the Hubstaff v1 API client.
+
+First configure the ``config.cs`` with your ``APP_TOKEN``, ``email`` and ``password``.
+
+### List users
+
+List all users and organization or project memberships for each user.
+
+```C#
+aspnetcoreapp hubstaff_api _hubstaff = new aspnetcoreapp hubstaff_api;
+_hubstaff.users(1,1,0);
+# => {"users": [{ "id":..., "organanizations": ["id":...], "projects": ["id":...]}]}
+
+```
+
+### Find a specific user
+
+Users can be looked up by their ``user_id``.
+
+```C#
+aspnetcoreapp hubstaff_api _hubstaff = new aspnetcoreapp hubstaff_api;
+_hubstaff.find_user(61188);
+
+# => {"user": { "id":...}}
+
+```

@@ -3,8 +3,6 @@ namespace config
     class config_class
     {
         public string App_token = "";
-        public string email = "";
-        public string password = "";
         public string auth_token = "";
         
 

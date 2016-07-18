@@ -19,23 +19,23 @@ namespace weekly_space
             parameters["Auth-Token"] = "header";
             parameters["App-token"] = "header";
 
-            if(String.IsNullOrEmpty(options["organizations"]))
+            if(!String.IsNullOrEmpty(options["organizations"]))
             {
                 fields["organizations"] = options["organizations"];
                 parameters["organizations"] = "";
             }
-            if(String.IsNullOrEmpty(options["projects"]))
+            if(!String.IsNullOrEmpty(options["projects"]))
             {
                 fields["projects"] = options["projects"];
                 parameters["projects"] = "";
             }
-            if(String.IsNullOrEmpty(options["users"]))
+            if(!String.IsNullOrEmpty(options["users"]))
             {
                 fields["users"] = options["users"];
                 parameters["users"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["date"]))
+            if(!String.IsNullOrEmpty(options["date"]))
             {
                 fields["date"] = options["date"];
                 parameters["date"] = "";

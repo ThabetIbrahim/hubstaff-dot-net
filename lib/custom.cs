@@ -23,41 +23,41 @@ namespace custom_space
 			parameters["start_date"] = "";
 			parameters["end_date"] = "";
 
-            if(String.IsNullOrEmpty(options["organizations"]))
+            if(!String.IsNullOrEmpty(options["organizations"]))
             {
                 fields["organizations"] = options["organizations"];
                 parameters["organizations"] = "";
             }
-            if(String.IsNullOrEmpty(options["projects"]))
+            if(!String.IsNullOrEmpty(options["projects"]))
             {
                 fields["projects"] = options["projects"];
                 parameters["projects"] = "";
             }
-            if(String.IsNullOrEmpty(options["users"]))
+            if(!String.IsNullOrEmpty(options["users"]))
             {
                 fields["users"] = options["users"];
                 parameters["users"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["show_tasks"]))
+            if(!String.IsNullOrEmpty(options["show_tasks"]))
             {
                 fields["show_tasks"] = options["show_tasks"];
                 parameters["show_tasks"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["show_notes"]))
+            if(!String.IsNullOrEmpty(options["show_notes"]))
             {
                 fields["show_notes"] = options["show_notes"];
                 parameters["show_notes"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["show_activity"]))
+            if(!String.IsNullOrEmpty(options["show_activity"]))
             {
                 fields["show_activity"] = options["show_activity"];
                 parameters["show_activity"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["include_archived"]))
+            if(!String.IsNullOrEmpty(options["include_archived"]))
             {
                 fields["include_archived"] = options["include_archived"];
                 parameters["include_archived"] = "";

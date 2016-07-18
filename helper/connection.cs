@@ -33,7 +33,6 @@ namespace connection
 
                 HttpResponseMessage response;
                 get_string = get_string.Remove(get_string.Length - 1);
-
 				if(type == 0)
                 {
                     response = await client.GetAsync(url+get_string);

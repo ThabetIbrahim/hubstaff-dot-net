@@ -26,17 +26,17 @@ namespace notes_space
 			parameters["stop_time"] = "";
             parameters["offset"] = "";
 
-            if(String.IsNullOrEmpty(options["organizations"]))
+            if(!String.IsNullOrEmpty(options["organizations"]))
             {
                 fields["organizations"] = options["organizations"];
                 parameters["organizations"] = "";
             }
-            if(String.IsNullOrEmpty(options["projects"]))
+            if(!String.IsNullOrEmpty(options["projects"]))
             {
                 fields["projects"] = options["projects"];
                 parameters["projects"] = "";
             }
-            if(String.IsNullOrEmpty(options["users"]))
+            if(!String.IsNullOrEmpty(options["users"]))
             {
                 fields["users"] = options["users"];
                 parameters["users"] = "";

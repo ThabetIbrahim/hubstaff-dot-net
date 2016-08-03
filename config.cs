@@ -1,12 +1,7 @@
 namespace config
 {
     class config_class
-    {
-        public string App_token = "";
-        public string auth_token = "";
-        
-
-
+    { 
         public string base_url = "https://api.hubstaff.com/v1/";
         public string auth_url = "auth";
         public string users = "users";

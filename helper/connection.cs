@@ -45,8 +45,9 @@ namespace connection
                 {
 					return await response.Content.ReadAsStringAsync();
                 }
+                
             }
-			return "fail";
+			return "{}";
 		
         }
     }

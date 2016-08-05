@@ -58,7 +58,7 @@ List all users and organization or project memberships for each user.
 
 ```C#
 hubstaff.client hubstaff_api = new hubstaff.client();
-_hubstaff.users(1,1,0);
+hubstaff_api.users(1,1,0);
 # => {"users": [{ "id":..., "organanizations": ["id":...], "projects": ["id":...]}]}
 
 ```
@@ -69,7 +69,7 @@ Users can be looked up by their ``user_id``.
 
 ```C#
 hubstaff.client hubstaff_api = new hubstaff.client();
-_hubstaff.find_user(61188);
+hubstaff_api.find_user(61188);
 
 # => {"user": { "id":...}}
 

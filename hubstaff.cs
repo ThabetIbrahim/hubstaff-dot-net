@@ -11,7 +11,10 @@ namespace hubstaff
     {
         public client()
         {
-            Console.Write(users());
+            if(!Directory.Exists(config.root_folder+"store"))
+            {
+                Directory.CreateDirectory(config.root_folder+"store");
+            }
         }
         
         public IServiceProvider serviceProvider;

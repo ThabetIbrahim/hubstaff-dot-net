@@ -54,9 +54,9 @@ First, grab your personal ``APP_TOKEN`` found in [your account settings](https:/
 
 After that, you'll authenticate the client and start exporting data from your account.
 
-```
+```C#
 How can you initialize a new client?
-How can you authenticate the clients?
+How can you authenticate the client?
 How can you change the user for the current client without initializing a new client?
 How can get the auth_token for the current client?
 ```

@@ -30,10 +30,8 @@ namespace connection
                     }
 
                 }
-
                 HttpResponseMessage response;
                 get_string = get_string.Remove(get_string.Length - 1);
-
 				if(type == 0)
                 {
                     response = await client.GetAsync(url+get_string);
@@ -41,13 +39,17 @@ namespace connection
                 {
                     response = await client.PostAsync(url, new FormUrlEncodedContent(post));
                 }
-
+                if(response.StatusCode.ToString() == "NotFound")
+                {
+                    return "{'error':'Record not found'}";
+                }
                 if (response.IsSuccessStatusCode)
                 {
 					return await response.Content.ReadAsStringAsync();
                 }
+                
             }
-			return "fail";
+			return "{'error':'Couldn't connect to server'}";
 		
         }
     }

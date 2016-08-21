@@ -9,7 +9,7 @@ namespace custom_space
 {
     class customClass{
 		private connection.connection_class connection = new connection.connection_class();
-		public Task<string> custom (string app_token,string auth_token,string start_date, string end_date, Dictionary<string, string> options, String url = "")
+        public Task<string> custom (string app_token,string auth_token,string start_date, string end_date, Dictionary<string, string> options, String url = "")
         {
             Dictionary<string, string> fields = new Dictionary<string, string>();
             fields["Auth-Token"] = auth_token;
@@ -23,41 +23,41 @@ namespace custom_space
 			parameters["start_date"] = "";
 			parameters["end_date"] = "";
 
-            if(String.IsNullOrEmpty(options["organizations"]))
+            if(!String.IsNullOrEmpty(options["organizations"]))
             {
                 fields["organizations"] = options["organizations"];
                 parameters["organizations"] = "";
             }
-            if(String.IsNullOrEmpty(options["projects"]))
+            if(!String.IsNullOrEmpty(options["projects"]))
             {
                 fields["projects"] = options["projects"];
                 parameters["projects"] = "";
             }
-            if(String.IsNullOrEmpty(options["users"]))
+            if(!String.IsNullOrEmpty(options["users"]))
             {
                 fields["users"] = options["users"];
                 parameters["users"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["show_tasks"]))
+            if(!String.IsNullOrEmpty(options["show_tasks"]))
             {
                 fields["show_tasks"] = options["show_tasks"];
                 parameters["show_tasks"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["show_notes"]))
+            if(!String.IsNullOrEmpty(options["show_notes"]))
             {
                 fields["show_notes"] = options["show_notes"];
                 parameters["show_notes"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["show_activity"]))
+            if(!String.IsNullOrEmpty(options["show_activity"]))
             {
                 fields["show_activity"] = options["show_activity"];
                 parameters["show_activity"] = "";
             }
 
-            if(String.IsNullOrEmpty(options["include_archived"]))
+            if(!String.IsNullOrEmpty(options["include_archived"]))
             {
                 fields["include_archived"] = options["include_archived"];
                 parameters["include_archived"] = "";

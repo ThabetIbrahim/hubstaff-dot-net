@@ -57,7 +57,7 @@ First configure the ``config.cs`` with your ``APP_TOKEN``, ``email`` and ``passw
 List all users and organization or project memberships for each user.
 
 ```C#
-hubstaff.client hubstaff_api = new hubstaff.client();
+hubstaff.client hubstaff_api = new hubstaff.client("< your hubstaff app token >");
 hubstaff_api.users(1,1,0);
 # => {"users": [{ "id":..., "organanizations": ["id":...], "projects": ["id":...]}]}
 
@@ -68,7 +68,7 @@ hubstaff_api.users(1,1,0);
 Users can be looked up by their ``user_id``.
 
 ```C#
-hubstaff.client hubstaff_api = new hubstaff.client();
+hubstaff.client hubstaff_api = new hubstaff.client("< your hubstaff app token >");
 hubstaff_api.find_user(61188);
 
 # => {"user": { "id":...}}

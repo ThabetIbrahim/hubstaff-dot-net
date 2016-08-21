@@ -7,7 +7,7 @@ namespace custom_test
         private connection.connection_class connection = new connection.connection_class();
         public string start_date = "2016-05-01";
         public string end_date = "2016-05-07";
-        public hubstaff.client hubstaff_api = new hubstaff.client();
+        public hubstaff.client hubstaff_api = new hubstaff.client("pHR18-G-9c05NoyBtji3a8A2KsFKOuZcSZK4gT5V9vc");
         public orgs_tests.orgsTestClass orgs = new orgs_tests.orgsTestClass();
         public projects_tests.projectsTestClass projects = new projects_tests.projectsTestClass();
         public users_tests.usersTestClass users = new users_tests.usersTestClass();

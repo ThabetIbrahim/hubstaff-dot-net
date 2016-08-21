@@ -1,7 +1,9 @@
+using System.IO;
+
 namespace config
 {
     class config_class
-    { 
+    {     
         public string root_folder = Directory.GetCurrentDirectory()+"/";
 
         public config_class()
@@ -17,7 +19,7 @@ namespace config
         public string find_user = "users/{0}";
         public string find_user_org = "users/{0}/organizations";
         public string find_user_projects = "users/{0}/projects";
-
+        
         public string orgs = "organizations";
         public string find_org = "organizations/{0}";
         public string find_org_proj = "organizations/{0}/projects";

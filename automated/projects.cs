@@ -4,7 +4,7 @@ namespace projects_tests
 {
     class projectsTestClass
     {
-        public hubstaff.client hubstaff_api = new hubstaff.client();
+        public hubstaff.client hubstaff_api = new hubstaff.client("pHR18-G-9c05NoyBtji3a8A2KsFKOuZcSZK4gT5V9vc");
         public Dictionary<int, string> projects()
         {
             Dictionary<int, string> projs_data = new Dictionary<int, string>();

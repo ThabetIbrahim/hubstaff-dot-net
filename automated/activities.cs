@@ -4,7 +4,8 @@ namespace activities_test
 {
     class activitiesTestClass{
 		private connection.connection_class connection = new connection.connection_class();
-		public hubstaff.client hubstaff_api = new hubstaff.client();
+		public string app_token;
+        public hubstaff.client hubstaff_api = new hubstaff.client("pHR18-G-9c05NoyBtji3a8A2KsFKOuZcSZK4gT5V9vc");
 
         public Dictionary <int, string> activities()
         {
@@ -20,7 +21,7 @@ namespace activities_test
             var data = hubstaff_api.activities(starttime, stoptime, options, 0);
             Dictionary <int, string> activities_data = new Dictionary <int, string>();
             int i = 0;
-            Console.WriteLine(data["activities"].HasValues);
+
             if(data["activities"].HasValues)
             {
                 foreach(var item in data["activities"])

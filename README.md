@@ -4,7 +4,7 @@ An ASP.NET toolkit for Hubstaff API.
 
 ## Installation
 
-Include the ```hubstaff.cs``` file in your project
+Include the ```hubstaff.cs``` file in your project.
 
 ## Usage
 
@@ -46,15 +46,22 @@ API actions are available as methods on the client object. Currently, the Hubsta
 | List custom team report by project       | `#custom_project_team(start_date, end_date, options={})`  |
 | List custom individual report by project | `#custom_project_my(start_date, end_date, options={})`    |
 
-## Use Cases
+## Usage Examples
 
-Here are some common use cases for the Hubstaff v1 API client.
+### Authentication
 
-First configure the ``config.cs`` with your ``APP_TOKEN``, ``email`` and ``password``.
+First, grab your personal ``APP_TOKEN`` found in [your account settings](https://developer.hubstaff.com/) and initialize a new client with your ``APP_TOKEN``.
 
-### List users
+After that, you'll authenticate the client and start exporting data from your account.
 
-List all users and organization or project memberships for each user.
+```
+How can you initialize a new client?
+How can you authenticate the clients?
+How can you change the user for the current client without initializing a new client?
+How can get the auth_token for the current client?
+```
+
+### You can list all users for a specific account, and get the details about the organization, and the projects they've worked on
 
 ```C#
 hubstaff.client hubstaff_api = new hubstaff.client("< your hubstaff app token >");
@@ -63,14 +70,25 @@ hubstaff_api.users(1,1,0);
 
 ```
 
-### Find a specific user
-
-Users can be looked up by their ``user_id``.
+### You can find specific users by their``user_id``.
 
 ```C#
 hubstaff.client hubstaff_api = new hubstaff.client("< your hubstaff app token >");
 hubstaff_api.find_user(61188);
 
 # => {"user": { "id":...}}
+```
+
+### You can list all active projects.
+
+```C#
+
+
+```
+
+### Retrieve screenshots for a specific project, within a specific timeframe.
+
+```C#
+
 
 ```

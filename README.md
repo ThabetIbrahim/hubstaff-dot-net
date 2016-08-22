@@ -150,7 +150,7 @@ hubstaff_api.projects();
 
 ```C#
 Dictionary<string, int> options = new Dictionary <string, int>(); 
-options.add("organizations", 112761);
+options.add("projects", 112761);
 hubstaff_api.screenshots("2016-05-22", "2016-05-24", options);
 
 {

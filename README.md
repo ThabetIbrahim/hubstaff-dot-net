@@ -55,17 +55,53 @@ First, grab your personal ``APP_TOKEN`` found in [your account settings](https:/
 After that, you'll authenticate the client and start exporting data from your account.
 
 ```C#
-hubstaff.client hubstaff_api = new hubstaff.client("< your hubstaff app token >");
 
-How can you authenticate a user using their email and password?
-How can you change the user for the current client without initializing a new client?
-How can get the auth_token for the current client?
+string app_token = "< your hubstaff app token >";
+string email = "< your hubstaff account email address >";
+string password = "< your hubstaff account password >";
+
+hubstaff.client hubstaff_api = new hubstaff.client(app_token);
+
+hubstaff_api.auth(email,password);
+
+hubstaff_api.get_auth_token();
 ```
 ### You can list all users for a specific account, and get the details about the organization, and the projects they've worked on.
 
 ```C#
 hubstaff_api.users(1,1,0);
-# => {"users": [{ "id":..., "organanizations": ["id":...], "projects": ["id":...]}]}
+
+{
+  "users": [
+    {
+      "id": 61188,
+      "name": "Raymond Cudjoe",
+      "last_activity": "2016-05-24T01:25:21Z",
+      "email": "rkcudjoe@hookengine.com",
+      "organizations": [
+        {
+          "id": 27572,
+          "name": "Hook Engine",
+          "last_activity": "2016-05-24T01:25:21Z"
+        }
+      ],
+      "projects": [
+        {
+          "id": 112761,
+          "name": "Build Ruby Gem",
+          "last_activity": "2016-05-24T01:25:21Z",
+          "status": "Active"
+        },
+        {
+          "id": 120320,
+          "name": "Hubstaff API tutorial",
+          "last_activity": null,
+          "status": "Active"
+        }
+      ]
+    }
+  ]
+}
 
 ```
 
@@ -74,19 +110,91 @@ hubstaff_api.users(1,1,0);
 ```C#
 hubstaff_api.find_user(61188);
 
-# => {"user": { "id":...}}
+{
+  "user": {
+    "id": 61188,
+    "name": "Raymond Cudjoe",
+    "last_activity": "2016-05-24T01:25:21Z",
+    "email": "rkcudjoe@hookengine.com"
+  }
+}
 ```
 
 ### You can list all active projects.
 
 ```C#
+hubstaff_api.projects();
 
+{
+  "projects": [
+    {
+      "id": 112761,
+      "name": "Build Ruby Gem",
+      "last_activity": "2016-05-24T01:25:21Z",
+      "status": "Active",
+      "description": null
+    },
+    {
+      "id": 120320,
+      "name": "Hubstaff API tutorial",
+      "last_activity": null,
+      "status": "Active",
+      "description": null
+    }
+  ]
+}
 
 ```
 
 ### Retrieve screenshots for a specific project, within a specific timeframe.
 
 ```C#
+Dictionary<string, int> options = new Dictionary <string, int>(); 
+options.add("organizations", 112761);
+hubstaff_api.screenshots("2016-05-22", "2016-05-24", options);
 
+{
+  "screenshots": [
+    {
+      "id": 173200938,
+      "url": "https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/c0ee59a20ef67f9537057e50fcd2132f515cc45e/0.jpg",
+      "time_slot": "2016-05-23T22:00:00Z",
+      "recorded_at": "2016-05-23T22:08:36Z",
+      "user_id": 61188,
+      "project_id": 112761,
+      "offset_x": 0,
+      "offset_y": 0,
+      "width": 1440,
+      "height": 900,
+      "screen": 0
+    },
+    {
+      "id": 173200946,
+      "url": "https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/07411361cb290b3b6f1990ae543f2d8b4e1eb463/0.jpg",
+      "time_slot": "2016-05-23T22:10:00Z",
+      "recorded_at": "2016-05-23T22:11:15Z",
+      "user_id": 61188,
+      "project_id": 112761,
+      "offset_x": 0,
+      "offset_y": 0,
+      "width": 1440,
+      "height": 900,
+      "screen": 0
+    },
+    {
+      "id": 173202151,
+      "url": "https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/3012270d9192734d93d861ed0eb9de66d68721ca/0.jpg",
+      "time_slot": "2016-05-23T22:20:00Z",
+      "recorded_at": "2016-05-23T22:23:05Z",
+      "user_id": 61188,
+      "project_id": 112761,
+      "offset_x": 0,
+      "offset_y": 0,
+      "width": 1440,
+      "height": 900,
+      "screen": 0
+    }
+  ]
+}
 
 ```

@@ -65,12 +65,15 @@ hubstaff.client hubstaff_api = new hubstaff.client(app_token);
 hubstaff_api.auth(email,password);
 
 hubstaff_api.get_auth_token();
+///=>
+"< hubstaff_auth_token >"
 ```
 ### You can list all users for a specific account, and get the details about the organization, and the projects they've worked on.
 
 ```C#
 hubstaff_api.users(1,1,0);
 
+///=>
 {
   "users": [
     {
@@ -110,6 +113,7 @@ hubstaff_api.users(1,1,0);
 ```C#
 hubstaff_api.find_user(61188);
 
+///=>
 {
   "user": {
     "id": 61188,
@@ -125,6 +129,7 @@ hubstaff_api.find_user(61188);
 ```C#
 hubstaff_api.projects();
 
+///=>
 {
   "projects": [
     {
@@ -153,6 +158,7 @@ Dictionary<string, int> options = new Dictionary <string, int>();
 options.add("projects", 112761);
 hubstaff_api.screenshots("2016-05-22", "2016-05-24", options);
 
+///=>
 {
   "screenshots": [
     {

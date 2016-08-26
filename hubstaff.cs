@@ -7,22 +7,18 @@ namespace hubstaff
     public class client
     {
         public string app_token = "";
+        public string auth_token = "";
         public client(string app_token)
         {
             this.app_token = app_token;
         }
         public string get_auth_token()
         {
-            if(File.Exists(config.root_folder+"store/auth.txt"))
-                return  System.IO.File.ReadAllText(config.root_folder+"store/auth.txt");
-            else return "";
+            return this.auth_token;   
         }
         public void set_auth_token(string auth_token)
         {
-            using (var stream = File.Open(config.root_folder+"store/auth.txt", FileMode.Create)) {
-                byte[] info = new UTF8Encoding(true).GetBytes(auth_token);
-                stream.Write(info,0,info.Length);
-            }
+            this.auth_token = auth_token;
         }
         public string get_app_token()
         {
@@ -35,40 +31,27 @@ namespace hubstaff
         {
             Dictionary<string, string> returned_data = new Dictionary<string, string>();
 
-            if(!Directory.Exists(config.root_folder+"store"))
-            {
-                returned_data["error"] = "Store directory not found";
-                return returned_data;
-            }
-
             auth_space.authClass _auth = new auth_space.authClass();
             string auth = get_auth_token();
-            if (auth.Length == 0)
+
+            var data = _auth.gen_auth(this.app_token, email, password, config.base_url + config.auth_url, 1).Result;
+            JObject auth_token_json;
+            if(data == "fail"){
+                returned_data["error"] =  "Error occured";
+                returned_data["auth_token"] =  null;
+                return returned_data;
+            }else
             {
-                var data = _auth.gen_auth(this.app_token, email, password, config.base_url + config.auth_url, 1).Result;
-                JObject auth_token_json;
-                if(data == "fail"){
-                    returned_data["error"] =  "Error occured";
-                    returned_data["auth_token"] =  null;
-                    return returned_data;
-                }else
-                {
-                    auth_token_json = JObject.Parse(data);
-                }
-                if(auth_token_json["error"] != null){
-                    returned_data["error"] = auth_token_json["error"].ToString();
-                    return returned_data;
-                }else
-                {
-                    returned_data["auth_token"] = auth_token_json["user"]["auth_token"].ToString();
-                    set_auth_token(returned_data["auth_token"]);
-                }
+                auth_token_json = JObject.Parse(data);
             }
-            else
+            if(auth_token_json["error"] != null){
+                returned_data["error"] = auth_token_json["error"].ToString();
+                return returned_data;
+            }else
             {
-                 returned_data["auth_token"] = auth;
-                 
-            }           
+                returned_data["auth_token"] = auth_token_json["user"]["auth_token"].ToString();
+            }
+
             returned_data["error"] =  "";
             return returned_data;
         }

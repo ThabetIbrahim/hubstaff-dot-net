@@ -1,64 +1,40 @@
+using System;
 using System.Collections.Generic;
-
+using Newtonsoft.Json.Linq;
+using Xunit;
 namespace weekly_test
 {
-    class weeklyTestClass
+    public class weeklyTestClass
     {
-        private connection.connection_class connection = new connection.connection_class();
-        public hubstaff.client hubstaff_api = new hubstaff.client("pHR18-G-9c05NoyBtji3a8A2KsFKOuZcSZK4gT5V9vc");
-        public orgs_tests.orgsTestClass orgs = new orgs_tests.orgsTestClass();
-        public projects_tests.projectsTestClass projects = new projects_tests.projectsTestClass();
-        public users_tests.usersTestClass users = new users_tests.usersTestClass();
-        private Dictionary<string, string> _options = new Dictionary<string, string>();
+        private config.config_class config = new config.config_class();
+        public hubstaff.client hubstaff_api = new hubstaff.client(Environment.GetEnvironmentVariable("app_token"));
+        public weeklyTestClass()
+        {
+            hubstaff_api.set_auth_token((string)Environment.GetEnvironmentVariable("auth_token"));
+        }
         private Dictionary<string, string> options = new Dictionary<string, string>();
         public void set_options()
         {
-            options["organizations"] = orgs.organizations()[0];
-            options["projects"] = projects.projects()[0];
-            options["users"] = users.users()[0];
-            options["date"] = "2016-05-01";
+            this.options["organizations"] = "27572";
+            this.options["projects"] = "112761";
+            this.options["users"] = "61188";
+            this.options["date"] = "2016-05-01";
         }
-        public Dictionary<int, string> weekly_team()
+        [Fact]
+        public void weekly_team()
         {
             set_options();
-            var data = hubstaff_api.weekly_team(options);
-            Dictionary<int, string> weekly_data = new Dictionary<int, string>();
-            int i = 0;
-            if (data["notes"].HasValues)
-            {
-                foreach (var item in data["users"])
-                {
-                    weekly_data.Add(i, (string)item["id"]);
-                    i++;
-                }
-            }
-            else
-            {
-                weekly_data.Add(0, "No data found");
-            }
-
-            return weekly_data;
+            var data = hubstaff_api.weekly_team(this.options);
+            JToken data_val = "";
+            Assert.True(data.TryGetValue("organizations", out data_val));
         }
-        public Dictionary<int, string> weekly_my()
+        [Fact]
+        public void weekly_my()
         {
             set_options();
-            var data = hubstaff_api.weekly_my(options);
-            Dictionary<int, string> weekly_data = new Dictionary<int, string>();
-            int i = 0;
-            if (data["notes"].HasValues)
-            {
-                foreach (var item in data["users"])
-                {
-                    weekly_data.Add(i, (string)item["id"]);
-                    i++;
-                }
-            }
-            else
-            {
-                weekly_data.Add(0, "No data found");
-            }
-
-            return weekly_data;
+            var data = hubstaff_api.weekly_my(this.options);
+            JToken data_val = "";
+            Assert.True(data.TryGetValue("organizations", out data_val));
         }
     }
 }

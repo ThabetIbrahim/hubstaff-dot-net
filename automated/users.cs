@@ -1,69 +1,48 @@
-using System.Collections.Generic;
 using System;
-namespace users_tests
+using Xunit;
+
+namespace user_tests.Test
 {
-    class usersTestClass
+    public class usersTestClass
     {
-        public hubstaff.client hubstaff_api = new hubstaff.client("pHR18-G-9c05NoyBtji3a8A2KsFKOuZcSZK4gT5V9vc");
-        public Dictionary<int, string> users()
+        private config.config_class config = new config.config_class();
+        public hubstaff.client hubstaff_api = new hubstaff.client(Environment.GetEnvironmentVariable("app_token"));
+        public usersTestClass()
         {
-
-            Dictionary<int, string> users_data = new Dictionary<int, string>();
-
+            hubstaff_api.set_auth_token((string)Environment.GetEnvironmentVariable("auth_token"));
+        }
+        [Fact]
+        public void usersTest()
+        {
             var data = hubstaff_api.users();
-
-            int i = 0;
-            foreach (var item in data["users"])
-            {
-                users_data.Add(i, (string)item["id"]);
-                i++;
-            }
-
-            return users_data;
+            int user_id;
+            Console.WriteLine("Xxxx");
+            Console.WriteLine(data);
+            Assert.True(Int32.TryParse((string)data["users"][0]["id"], out user_id));
         }
-        public Dictionary<int, string> find_User()
+        [Fact]
+        public void find_UserTest()
         {
-            int id = Int32.Parse(users()[0]);
-
+            int id = 61188;
             var data = hubstaff_api.find_user(id);
-
-            Dictionary<int, string> users_data = new Dictionary<int, string>();
-            if (data["error"] == null)
-            {
-                users_data.Add(0, (string)data["user"]["id"]);
-            }
-            else
-            {
-                users_data.Add(0, (string)data["error"]);
-            }
-            return users_data;
+            int user_id;
+            Assert.True(Int32.TryParse((string)data["user"]["id"], out user_id));
         }
-        public Dictionary<int, string> find_user_projects()
+        [Fact]
+        public void find_user_projectsTest()
         {
-            int id = Int32.Parse(users()[0]);
+            int id = 61188;
             var data = hubstaff_api.find_user_projects(id);
-            Dictionary<int, string> proj_data = new Dictionary<int, string>();
-            int i = 0;
-            foreach (var item in data["projects"])
-            {
-                proj_data.Add(i, (string)item["id"]);
-                i++;
-            }
-
-            return proj_data;
+            int project_id;
+            Assert.True(Int32.TryParse((string)data["projects"][0]["id"], out project_id));
         }
-        public Dictionary<int, string> find_user_orgs()
+        [Fact]
+        public void find_user_orgsTest()
         {
-            int id = Int32.Parse(users()[0]);
+            int id = 61188;
             var data = hubstaff_api.find_user_orgs(id);
-            Dictionary<int, string> orgs_data = new Dictionary<int, string>();
-            int i = 0;
-            foreach (var item in data["organizations"])
-            {
-                orgs_data.Add(i, (string)item["id"]);
-                i++;
-            }
-            return orgs_data;
+            int organization_id;
+            Assert.True(Int32.TryParse((string)data["organizations"][0]["id"], out organization_id));
         }
     }
 }

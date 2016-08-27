@@ -1,7 +1,5 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 namespace hubstaff
 {
     public class client
@@ -134,7 +132,7 @@ namespace hubstaff
         public JObject notes(string starttime, string stoptime, Dictionary<string, string> options,int offset = 0)
         {
             notes_space.notesClass _note = new notes_space.notesClass();
-            return JObject.Parse(_note.get_notes(get_app_token(), get_auth_token(),starttime,stoptime,options,offset,config.base_url+config.screenshots).Result);
+            return JObject.Parse(_note.get_notes(get_app_token(), get_auth_token(),starttime,stoptime,options,offset,config.base_url+config.notes).Result);
         }
 
         public JObject find_note(int id)

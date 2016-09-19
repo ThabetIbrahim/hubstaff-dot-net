@@ -1,45 +1,48 @@
-using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using Xunit;
+using Moq;
+
 namespace orgs_tests
 {
     public class orgsTestClass
     {
-        private config.config_class config = new config.config_class();
-        public hubstaff.client hubstaff_api = new hubstaff.client(Environment.GetEnvironmentVariable("app_token"));
-        public orgsTestClass()
-        {
-            hubstaff_api.set_auth_token((string)Environment.GetEnvironmentVariable("auth_token"));
-        }
+        public hubstaff_test.client hubstaff_api = new hubstaff_test.client();
         [Fact]
         public void organizations()
         {
-            var data = hubstaff_api.organizations(0);
-            int org_id;
-            Assert.True(Int32.TryParse((string)data["organizations"][0]["id"], out org_id));
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'organizations':[{'id':27572,'name':'Hook Engine','last_activity':'2016-05-24T01:25:21Z'}]}");
+            clientMock.Setup(r => r.organizations(It.IsAny<int>())).Returns(data);
+            clientMock.Object.organizations(0);
+            clientMock.Verify(r => r.organizations(It.IsAny<int>()), Times.AtLeastOnce());
         }
         [Fact]
-        public void find_Organization()
+        public void find_organization()
         {
-            int id = 27572;
-            var data = hubstaff_api.find_organization(id);
-            int org_id;
-            Assert.True(Int32.TryParse((string)data["organization"]["id"], out org_id));
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'organization':[{'id':27572,'name':'Hook Engine','last_activity':'2016-05-24T01:25:21Z'}]}");
+            clientMock.Setup(r => r.find_organization(It.IsAny<int>())).Returns(data);
+            clientMock.Object.find_organization(27572);
+            clientMock.Verify(r => r.find_organization(It.IsAny<int>()), Times.AtLeastOnce());
         }
         [Fact]
-        public void find_Organization_projects()
+        public void find_organization_projects()
         {
-            int id = 27572;
-            var data = hubstaff_api.find_org_projects(id);
-            int project_id;
-            Assert.True(Int32.TryParse((string)data["projects"][0]["id"], out project_id));
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'projects':[{'id':112761,'name':'Build Ruby Gem','last_activity':'2016-05-24T01:25:21Z','status':'Active','description':null},{'id':120320,'name':'Hubstaff API tutorial','last_activity':null,'status':'Active','description':null}]}");
+            clientMock.Setup(r => r.find_org_projects(It.IsAny<int>(), It.IsAny<int>())).Returns(data);
+            clientMock.Object.find_org_projects(27572);
+            clientMock.Verify(r => r.find_org_projects(It.IsAny<int>(),It.IsAny<int>()), Times.AtLeastOnce());
         }
         [Fact]
-        public void find_Organization_members()
+        public void find_organization_members()
         {
-            int id = 27572;
-            var data = hubstaff_api.find_org_members(id);
-            int user_id;
-            Assert.True(Int32.TryParse((string)data["users"][0]["id"], out user_id));
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'users':[{'id':61188,'name':'Raymond Cudjoe','last_activity':'2016-05-24T01:25:21Z','email':'rkcudjoe@hookengine.com','pay_rate':'No rate set'}]}");
+            clientMock.Setup(r => r.find_org_members(It.IsAny<int>(), It.IsAny<int>())).Returns(data);
+            clientMock.Object.find_org_members(27572);
+            clientMock.Verify(r => r.find_org_members(It.IsAny<int>(),It.IsAny<int>()), Times.AtLeastOnce());
         }
     }
 }

@@ -13,8 +13,6 @@ namespace config
             {
                 root_folder =  Directory.GetCurrentDirectory()+"/hubstaff/";
             }
-            Environment.SetEnvironmentVariable("app_token","");
-            Environment.SetEnvironmentVariable("auth_token","");
         }
         
         public string base_url = "https://api.hubstaff.com/v1/";

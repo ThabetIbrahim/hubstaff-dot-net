@@ -7,7 +7,7 @@ namespace connection
 {
     class connection_class
     {
-		public async Task<string> make_connection(Dictionary<string, string>  fields,Dictionary<string, string> parameters,String url,int type = 0)
+	public async Task<string> make_connection(Dictionary<string, string>  fields,Dictionary<string, string> parameters,String url,int type = 0)
         {
             using (var client = new HttpClient())
             {
@@ -32,7 +32,7 @@ namespace connection
                 }
                 HttpResponseMessage response;
                 get_string = get_string.Remove(get_string.Length - 1);
-				if(type == 0)
+		if(type == 0)
                 {
                     response = await client.GetAsync(url+get_string);
                 }else
@@ -45,12 +45,11 @@ namespace connection
                 }
                 if (response.IsSuccessStatusCode)
                 {
-					return await response.Content.ReadAsStringAsync();
+		    return await response.Content.ReadAsStringAsync();
                 }
                 
             }
-			return "{'error':'Couldn't connect to server'}";
-		
+	    return "{'error':'"+response.StatusCode.ToString()+"'}";
         }
     }
 }

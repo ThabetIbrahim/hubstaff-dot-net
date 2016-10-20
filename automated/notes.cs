@@ -1,51 +1,40 @@
-using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using Xunit;
+using Moq;
+
 namespace notes_test
 {
-    class notesTestClass{
-		private connection.connection_class connection = new connection.connection_class();
-    	public hubstaff.client hubstaff_api = new hubstaff.client("pHR18-G-9c05NoyBtji3a8A2KsFKOuZcSZK4gT5V9vc");
-        public orgs_tests.orgsTestClass orgs = new orgs_tests.orgsTestClass();
-        public projects_tests.projectsTestClass projects = new projects_tests.projectsTestClass();
-        public users_tests.usersTestClass users = new users_tests.usersTestClass();
+    public class notesTestClass{
+        public hubstaff_test.client hubstaff_api = new hubstaff_test.client();
         private Dictionary <string, string>  options = new Dictionary<string, string>();
         public void set_options()
         {
-            options["organizations"] = orgs.organizations()[0];
-            options["projects"] = projects.projects()[0];
-            options["users"] = users.users()[0];
+            this.options["organizations"] = "27572";
+            this.options["projects"] = "112761";
+            this.options["users"] = "61188";
         }
-        
-        public Dictionary<int, string> notes()
+        [Fact]
+        public void notes()
         {
             set_options();
-            string starttime = "2016-05-01";
-            string endtime = "2016-05-07";
-            var data = hubstaff_api.screehshots(starttime,endtime,options,0);
-            Dictionary<int, string> notes_data = new Dictionary<int, string>();
-            int i = 0;
-            if(data["notes"].HasValues)
-            {
-                foreach(var item in data["notes"])
-                {
-                    notes_data.Add(i, (string)item["id"]);
-                    i++;
-                }
-            }else
-            {
-                notes_data.Add(0, "No data found");
-            }
+            var data = JObject.Parse("{'notes':[{'id':716530,'description':'Practice Notes','time_slot':'2016-05-23T22:20:00Z','recorded_at':'2016-06-04T19:08:22Z','user_id':61188,'project_id':112761}]}");
+            string starttime = "2016-05-23";
+            string endtime = "2016-05-25";
+            var clientMock = new Mock<hubstaff_test.client>();
+            clientMock.Setup(r => r.notes(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Dictionary<string, string>>(), It.IsAny<int>())).Returns(data);
+            clientMock.Object.notes(starttime, endtime, this.options, 0);
+            clientMock.Verify(r => r.notes(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Dictionary<string, string>>(), It.IsAny<int>()), Times.AtLeastOnce());
 
-            return notes_data;
         }
-
-        public Dictionary<int, string> get_note()
+        [Fact]
+        public void get_note()
         {
-            int id = Int32.Parse(notes()[0]);
-            var data = hubstaff_api.find_user(id);
-            Dictionary<int, string> note_data = new Dictionary<int, string>();
-            note_data.Add(0, (string)data["user"]["id"]);
-            return note_data;
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'note':{'id':716530,'description':'Practice Notes','time_slot':'2016-05-23T22:20:00Z','recorded_at':'2016-06-04T19:08:22Z','user_id':61188,'project_id':112761}}");
+            clientMock.Setup(r => r.find_note(It.IsAny<int>())).Returns(data);
+            clientMock.Object.find_note(716530);
+            clientMock.Verify(r => r.find_note(It.IsAny<int>()), Times.AtLeastOnce());            
         }
 
     }

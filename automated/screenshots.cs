@@ -1,41 +1,30 @@
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using Xunit;
+using Moq;
+
 namespace screenshots_test
 {
-    class screenshotsTestClass{
-		private connection.connection_class connection = new connection.connection_class();
-    	public hubstaff.client hubstaff_api = new hubstaff.client("pHR18-G-9c05NoyBtji3a8A2KsFKOuZcSZK4gT5V9vc");
-        public orgs_tests.orgsTestClass orgs = new orgs_tests.orgsTestClass();
-        public projects_tests.projectsTestClass projects = new projects_tests.projectsTestClass();
-        public users_tests.usersTestClass users = new users_tests.usersTestClass();
+    public class screenshotsTestClass{
+        public hubstaff_test.client hubstaff_api = new hubstaff_test.client();
         private Dictionary <string, string>  options = new Dictionary<string, string>();
         public void set_options()
         {
-            options["organizations"] = orgs.organizations()[0];
-            options["projects"] = projects.projects()[0];
-            options["users"] = users.users()[0];
+            this.options["organizations"] = "27572";
+            this.options["projects"] = "112761";
+            this.options["users"] = "61188";
         }
-        
-        public Dictionary<int, string> screenshots()
+        [Fact]
+        public void screenshots()
         {
             set_options();
             string starttime = "2016-05-01";
             string endtime = "2016-05-07";
-            var data = hubstaff_api.screehshots(starttime,endtime,options,0);
-            Dictionary<int, string> screehshots_data = new Dictionary<int, string>();
-            int i = 0;
-            if(data["screehshots"].HasValues)
-            {
-                foreach(var item in data["activities"])
-                {
-                    screehshots_data.Add(i, (string)item["id"]);
-                    i++;
-                }
-            }else
-            {
-                screehshots_data.Add(0, "No data found");
-            }
-
-            return screehshots_data;
+            var data = JObject.Parse("{'screenshots':[{'id':173200938,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/c0ee59a20ef67f9537057e50fcd2132f515cc45e/0.jpg','time_slot':'2016-05-23T22:00:00Z','recorded_at':'2016-05-23T22:08:36Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173200946,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/07411361cb290b3b6f1990ae543f2d8b4e1eb463/0.jpg','time_slot':'2016-05-23T22:10:00Z','recorded_at':'2016-05-23T22:11:15Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173202151,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/3012270d9192734d93d861ed0eb9de66d68721ca/0.jpg','time_slot':'2016-05-23T22:20:00Z','recorded_at':'2016-05-23T22:23:05Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173209073,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/5f482abab2d06ec9d21837bb064e2407ba86cb4a/0.jpg','time_slot':'2016-05-23T22:30:00Z','recorded_at':'2016-05-23T22:38:57Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173209082,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/fe8468512d27fb73f5b11224f8319901831e7243/0.jpg','time_slot':'2016-05-23T22:40:00Z','recorded_at':'2016-05-23T22:48:26Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173212560,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/cd51a2a8b0f381ee0cf535a807f3de3a7b9aae6a/0.jpg','time_slot':'2016-05-23T22:50:00Z','recorded_at':'2016-05-23T22:52:03Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173214487,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/ec4ad9d53abdc6ef0415f9b7f120234100e5c95b/0.jpg','time_slot':'2016-05-23T23:00:00Z','recorded_at':'2016-05-23T23:05:51Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173218383,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/aa8435d4e083915b96d4813dc969554b3ba8cec5/0.jpg','time_slot':'2016-05-23T23:10:00Z','recorded_at':'2016-05-23T23:12:51Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173218389,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/4a794505873b26e068256ddcb99b80be50cf152c/0.jpg','time_slot':'2016-05-23T23:20:00Z','recorded_at':'2016-05-23T23:20:54Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173222901,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/2419fd9aad3293a1322b45c8671caa471cf8f931/0.jpg','time_slot':'2016-05-23T23:30:00Z','recorded_at':'2016-05-23T23:35:04Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173225033,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/fad4d39d397276fac908a80fe56cc08453adcf9b/0.jpg','time_slot':'2016-05-23T23:40:00Z','recorded_at':'2016-05-23T23:42:35Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173227360,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/617337f02ca3bf3e7cf14b4fef6e75d7c6356d79/0.jpg','time_slot':'2016-05-23T23:50:00Z','recorded_at':'2016-05-23T23:51:45Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173233089,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/9c78aee48c75b8441a4d6fcfde11b4a92631df11/0.jpg','time_slot':'2016-05-24T00:00:00Z','recorded_at':'2016-05-24T00:05:03Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173233095,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/b49ef1b5b9fb33f1835c2a165c422059705bc5a9/0.jpg','time_slot':'2016-05-24T00:10:00Z','recorded_at':'2016-05-24T00:19:11Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173236951,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/bf60b31559277b2139fdb7949c14f598af35adcf/0.jpg','time_slot':'2016-05-24T00:20:00Z','recorded_at':'2016-05-24T00:28:51Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0},{'id':173236957,'url':'https://hubstaff-production.s3.amazonaws.com/screenshots/61188/2016/21/112761/e89877b6237e22e5dd54dd2eaf2e752290c775b7/0.jpg','time_slot':'2016-05-24T00:30:00Z','recorded_at':'2016-05-24T00:37:09Z','user_id':61188,'project_id':112761,'offset_x':0,'offset_y':0,'width':1440,'height':900,'screen':0}]}");
+            var clientMock = new Mock<hubstaff_test.client>();
+            clientMock.Setup(r => r.screehshots(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Dictionary<string, string>>(), It.IsAny<int>())).Returns(data);
+            clientMock.Object.screehshots(starttime, endtime, this.options, 0);
+            clientMock.Verify(r => r.screehshots(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Dictionary<string, string>>(), It.IsAny<int>()), Times.AtLeastOnce());
         }
 
     }

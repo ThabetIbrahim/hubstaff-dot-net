@@ -1,69 +1,49 @@
 using System.Collections.Generic;
-using System;
-namespace users_tests
+using Newtonsoft.Json.Linq;
+using Xunit;
+using Moq;
+
+namespace user_tests.Test
 {
-    class usersTestClass
+    public class usersTestClass
     {
-        public hubstaff.client hubstaff_api = new hubstaff.client("pHR18-G-9c05NoyBtji3a8A2KsFKOuZcSZK4gT5V9vc");
-        public Dictionary<int, string> users()
+        public hubstaff_test.client hubstaff_api = new hubstaff_test.client();
+
+        [Fact]
+        public void usersTest()
         {
-
-            Dictionary<int, string> users_data = new Dictionary<int, string>();
-
-            var data = hubstaff_api.users();
-
-            int i = 0;
-            foreach (var item in data["users"])
-            {
-                users_data.Add(i, (string)item["id"]);
-                i++;
-            }
-
-            return users_data;
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'users':[{'id':61188,'name':'Raymond Cudjoe','last_activity':'2016-05-24T01:25:21Z','email':'rkcudjoe@hookengine.com'}]}");
+            clientMock.Setup(r => r.users(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(data);
+            clientMock.Object.users(1, 1, 1);
+            clientMock.Verify(r => r.users(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.AtLeastOnce());
         }
-        public Dictionary<int, string> find_User()
+        [Fact]
+        public void find_UserTest()
         {
-            int id = Int32.Parse(users()[0]);
-
-            var data = hubstaff_api.find_user(id);
-
-            Dictionary<int, string> users_data = new Dictionary<int, string>();
-            if (data["error"] == null)
-            {
-                users_data.Add(0, (string)data["user"]["id"]);
-            }
-            else
-            {
-                users_data.Add(0, (string)data["error"]);
-            }
-            return users_data;
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'user':[{'id':61188,'name':'Raymond Cudjoe','last_activity':'2016-05-24T01:25:21Z','email':'rkcudjoe@hookengine.com'}]}");
+            clientMock.Setup(r => r.find_user(It.IsAny<int>())).Returns(data);
+            clientMock.Object.find_user(61188);
+            clientMock.Verify(r => r.find_user(It.IsAny<int>()), Times.AtLeastOnce());            
         }
-        public Dictionary<int, string> find_user_projects()
+        [Fact]
+        public void find_user_projectsTest()
         {
-            int id = Int32.Parse(users()[0]);
-            var data = hubstaff_api.find_user_projects(id);
-            Dictionary<int, string> proj_data = new Dictionary<int, string>();
-            int i = 0;
-            foreach (var item in data["projects"])
-            {
-                proj_data.Add(i, (string)item["id"]);
-                i++;
-            }
-
-            return proj_data;
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'organizations':[{'id':27572,'name':'Hook Engine','last_activity':'2016-05-24T01:25:21Z'}]}");
+            clientMock.Setup(r => r.find_user_projects(It.IsAny<int>(), It.IsAny<int>())).Returns(data);
+            clientMock.Object.find_user_projects(61188, 0);
+            clientMock.Verify(r => r.find_user_projects(It.IsAny<int>(), It.IsAny<int>()), Times.AtLeastOnce());            
         }
-        public Dictionary<int, string> find_user_orgs()
+        [Fact]
+        public void find_user_orgsTest()
         {
-            int id = Int32.Parse(users()[0]);
-            var data = hubstaff_api.find_user_orgs(id);
-            Dictionary<int, string> orgs_data = new Dictionary<int, string>();
-            int i = 0;
-            foreach (var item in data["organizations"])
-            {
-                orgs_data.Add(i, (string)item["id"]);
-                i++;
-            }
-            return orgs_data;
+            var clientMock = new Mock<hubstaff_test.client>();
+            var data = JObject.Parse("{'projects':[{'id':112761,'name':'Build Ruby Gem','last_activity':'2016-05-24T01:25:21Z','status':'Active','description':null},{'id':120320,'name':'Hubstaff API tutorial','last_activity':null,'status':'Active','description':null}]}");
+            clientMock.Setup(r => r.find_user_orgs(It.IsAny<int>(), It.IsAny<int>())).Returns(data);
+            clientMock.Object.find_user_orgs(61188, 0);
+            clientMock.Verify(r => r.find_user_orgs(It.IsAny<int>(), It.IsAny<int>()), Times.AtLeastOnce());            
         }
     }
 }

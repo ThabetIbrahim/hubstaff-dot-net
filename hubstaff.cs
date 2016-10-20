@@ -48,7 +48,7 @@ namespace hubstaff
             }else
             {
                 returned_data["auth_token"] = auth_token_json["user"]["auth_token"].ToString();
-                set_auth_token(returned_data["auth_token"]);
+                this.set_auth_token(returned_data["auth_token"]);
             }
 
             returned_data["error"] =  "";

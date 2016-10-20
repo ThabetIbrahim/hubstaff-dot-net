@@ -47,9 +47,9 @@ namespace connection
                 {
 		    return await response.Content.ReadAsStringAsync();
                 }
-                
+                return "{'error':'"+response.StatusCode.ToString()+"'}";
             }
-	    return "{'error':'"+response.StatusCode.ToString()+"'}";
+	    
         }
     }
 }

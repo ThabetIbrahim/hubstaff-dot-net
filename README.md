@@ -204,3 +204,8 @@ hubstaff_api.screenshots("2016-05-22", "2016-05-24", options);
 }
 
 ```
+### Run tests
+
+```C#
+dotnet test
+```

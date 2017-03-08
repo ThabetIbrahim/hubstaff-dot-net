@@ -205,7 +205,8 @@ hubstaff_api.screenshots("2016-05-22", "2016-05-24", options);
 
 ```
 ### Run tests
-
+To run the tests, first using terminal navigate to hubstaff api directory.
+Then run
 ```C#
 dotnet test
 ```

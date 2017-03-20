@@ -48,7 +48,7 @@ namespace hubstaff
             }else
             {
                 returned_data["auth_token"] = auth_token_json["user"]["auth_token"].ToString();
-                set_auth_token(returned_data["auth_token"]);
+                this.set_auth_token(returned_data["auth_token"]);
             }
 
             returned_data["error"] =  "";
@@ -116,7 +116,7 @@ namespace hubstaff
             projects_space.projectsClass _proj = new projects_space.projectsClass();
             return JObject.Parse(_proj.find_project_members(get_app_token(), get_auth_token(),offset,config.base_url + string.Format(config.find_proj_members, id)).Result);
         }
-        public  JObject activities(string starttime, string stoptime, Dictionary<string, string> options,int offset = 0)
+        public JObject activities(string starttime, string stoptime, Dictionary<string, string> options,int offset = 0)
         {
             activities_space.activitiesClass _act= new activities_space.activitiesClass();
             return JObject.Parse(_act.get_activities(get_app_token(), get_auth_token(),starttime,stoptime,options,offset,config.base_url+config.activities).Result);
